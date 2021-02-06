@@ -7,22 +7,23 @@ from telegram.ext import CallbackContext
 from telegram.ext import Filters
 from telegram.ext import MessageHandler
 from telegram.ext import CommandHandler
-
+from data import TextBase
 from config import TOKEN
 
+textInsert = TextBase
+
 button_HTML = 'HTML, CSS'
-button_HTML_lesson = 'Список уроков\n по HTML5, CSS3'
+button_HTML_video = 'Список видео\n по HTML5, CSS3'
 button_HTML_docs = 'Общая документация\n по HTML5, CSS3'
 button_HTML_links = 'Полезные ссылки\n по HTML5, CSS3'
 button_JS = 'JavaScript'
-button_JS_lesson = 'Список уроков\n по JS'
+button_JS_video = 'Список видео\n по JS'
 button_JS_docs = 'Общая документация\n по JS'
 button_JS_links = 'Полезные ссылки\n по JS'
 button_Python = 'Python'
-button_Python_lesson = 'Список уроков\n по Python'
+button_Python_video = 'Список видео\n по Python'
 button_Python_docs = 'Общая документация\n по Python'
 button_Python_links = 'Полезные ссылки\n по Python'
-
 
 
 def log_error(f):
@@ -42,7 +43,7 @@ def button_HTML_handler(update: Update, context: CallbackContext):
         reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
-                    KeyboardButton(text=button_HTML_lesson),
+                    KeyboardButton(text=button_HTML_video),
                     KeyboardButton(text=button_HTML_docs),
                     KeyboardButton(text=button_HTML_links),
                 ],
@@ -52,13 +53,34 @@ def button_HTML_handler(update: Update, context: CallbackContext):
     )
 
 
+def button_html_video(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.HTML_video,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
+def button_html_docs(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.HTML_docs,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
+def button_html_links(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.HTML_links,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
 def button_JS_handler(update: Update, context: CallbackContext):
     update.message.reply_text(
         text='Справочник по разделу JavaScript',
         reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
-                    KeyboardButton(text=button_JS_lesson),
+                    KeyboardButton(text=button_JS_video),
                     KeyboardButton(text=button_JS_docs),
                     KeyboardButton(text=button_JS_links),
                 ],
@@ -68,13 +90,55 @@ def button_JS_handler(update: Update, context: CallbackContext):
     )
 
 
+def button_js_video(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.JS_video,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
+def button_js_docs(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.JS_docs,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
+def button_js_links(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.JS_links,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
+def button_python_video(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.Python_video,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
+def button_python_docs(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.Python_docs,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
+def button_python_links(update: Update, context: CallbackContext, ):
+    update.message.reply_text(
+        text=textInsert.Python_links,
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
 def button_Python_handler(update: Update, context: CallbackContext):
     update.message.reply_text(
         text='Справочник по разделу Python',
         reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
-                    KeyboardButton(text=button_Python_lesson),
+                    KeyboardButton(text=button_Python_video),
                     KeyboardButton(text=button_Python_docs),
                     KeyboardButton(text=button_Python_links),
                 ],
@@ -111,6 +175,24 @@ def message_handler(update: Update, context: CallbackContext):
         return button_JS_handler(update=update, context=context)
     if text == button_Python:
         return button_Python_handler(update=update, context=context)
+    if text == button_HTML_video:
+        return button_html_video(update=update, context=context)
+    if text == button_HTML_docs:
+        return button_html_docs(update=update, context=context)
+    if text == button_HTML_links:
+        return button_html_links(update=update, context=context)
+    if text == button_JS_video:
+        return button_js_video(update=update, context=context)
+    if text == button_JS_docs:
+        return button_js_docs(update=update, context=context)
+    if text == button_JS_links:
+        return button_js_links(update=update, context=context)
+    if text == button_Python_video:
+        return button_python_video(update=update, context=context)
+    if text == button_Python_docs:
+        return button_python_docs(update=update, context=context)
+    if text == button_Python_links:
+        return button_python_links(update=update, context=context)
 
 
 def main():
